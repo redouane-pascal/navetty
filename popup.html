@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+</head>
+<body style="overflow: visible !important; background-image: url('/img/bg.png'); width: 792px; height: 400px;">
+
+<div id="loader" style="width: 100%; height: 100%; background-color: white; position: absolute; top: 0; z-index: 5; top: -100px;">
+	<img src="img/loading_.gif" class="center"/>  <!--object-fit: contain; -->
+</div>
+
+<!--
+  background: linear-gradient(to top right, #0091D0, #87888A);
+  background: -webkit-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -moz-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -ms-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: -o-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
+  background: linear-gradient(45deg, #085078 10%, #85d8ce 90%);  
+-->
+<style>
+@font-face {
+  font-family: 'digitalDisplay';
+  src: url('/font/Digital Display.ttf');
+}
+.table>thead>tr>th {
+    padding: 15px !important;
+}
+.flex-parent {
+  display: inline;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.circle_front {
+	display: inline-block;
+    width: 40px;
+    height: 21px;
+    background: white;
+    z-index: 4;
+    border-radius: 10%;
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    margin-left: 2px;
+    margin-top: -3px;
+	text-align: center;
+/* 
+	display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: white;
+    z-index: 4;
+    border-radius: 50%;
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+*/
+}	
+.circle_back {
+	display: inline-block;
+    width: 52px;
+    height: 25px;
+    background: red;
+    border-radius: 17%;
+    border-style: solid;
+    border-width: 1px;
+    z-index: 3;
+    position: absolute;
+    top: 25px;
+    margin-top: -5px;
+/*		
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: red;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+    margin-left: -5px;
+    z-index: 3;
+    position: absolute;
+    top: 25px;
+    margin-top: -5px;
+*/
+
+}
+.rectangle {
+	width: 100%;
+    height: 1px;
+    background: black;
+    position: absolute;
+    z-index: 1;
+}
+.myBar {
+    width: 100%;
+    position: relative;
+    z-index: 6;
+    height: 8px;
+    background-color: darkorange;
+    transform: rotate(180deg);
+	top: 1px;
+}
+.nomGare {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+.horaire {
+	font-size: 12px;
+	margin: -3px;
+}
+.ligne0{ top:  40px;}
+.ligne1{ top:  70px;}
+.ligne2{ top: 100px;}
+.ligne3{ top: 130px;}
+.ligne4{ top: 160px;}
+.ligne5{ top: 190px;}
+.ligne6{ top: 220px;}
+.ligne7{ top: 250px;}
+.ligne8{ top: 280px;}
+.ligne9{ top: 310px;}
+
+.gare1 {left: 16px;}
+.gare2 {left: 88px;}
+.gare3 {left: 160px;}
+.gare4 {left: 232px;}
+.gare5 {left: 304px;}
+.gare6 {left: 376px;}
+.gare7 {left: 448px;}
+.gare8 {left: 520px;}
+.gare9 {left: 592px;}
+.gare10 {left: 664px;}
+.gare1A {left: 736px;}
+
+th {
+	text-align: center;
+}
+
+.train_0 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_1 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_2 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_3 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_4 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_5 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_6 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+.train_7 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_8 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.train_9 {
+  position: relative;
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+
+.fadeIn {
+  position: relative;
+  -webkit-animation-name: fadeIn; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+  animation-name: fadeIn;
+  animation-duration: 3s;
+}
+
+/* Standard syntax */
+@keyframes fadeIn {
+  0%   {opacity:1;}
+  100% {opacity:0;}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+  0%   {left:143px; top:50px;}
+  100% {left:201px; top:50px;}
+}
+
+/* Standard syntax */
+@keyframes example {
+  0%   {left:-200px;}
+  100% {left:-120px;}
+}
+/*
+@keyframes ltr1 { 0% {left: 18px;} 100% {left: 58px;}}
+@keyframes ltr2 { 0% {left: 90px;} 100% {left: 130px;}}
+@keyframes ltr3 { 0% {left: 162px;} 100% {left: 202px;}}
+@keyframes ltr4 { 0% {left: 234px;} 100% {left: 274px;}}
+@keyframes ltr5 { 0% {left: 306px;} 100% {left: 346px;}}
+@keyframes ltr6 { 0% {left: 378px;} 100% {left: 418px;}}
+@keyframes ltr7 { 0% {left: 450px;} 100% {left: 490px;}}
+@keyframes ltr8 { 0% {left: 522px;} 100% {left: 562px;}}
+@keyframes ltr9 { 0% {left: 594px;} 100% {left: 634px;}}
+@keyframes ltr10 { 0% {left: 666px;} 100% {left: 706px;}}
+@keyframes ltr11 { 0% {left: 738px;} 100% {left: 778px;}}
+
+@keyframes rtl11 { 0% {left: 58px;} 100% {left: 18px;}}
+@keyframes rtl10 { 0% {left: 130px;} 100% {left: 90px;}}
+@keyframes rtl9 { 0% {left: 202px;} 100% {left: 162px;}}
+@keyframes rtl8 { 0% {left: 274px;} 100% {left: 234px;}}
+@keyframes rtl7 { 0% {left: 346px;} 100% {left: 306px;}}
+@keyframes rtl6 { 0% {left: 418px;} 100% {left: 378px;}}
+@keyframes rtl5 { 0% {left: 490px;} 100% {left: 450px;}}
+@keyframes rtl4 { 0% {left: 562px;} 100% {left: 522px;}}
+@keyframes rtl3 { 0% {left: 634px;} 100% {left: 594px;}}
+@keyframes rtl2 { 0% {left: 706px;} 100% {left: 666px;}}
+@keyframes rtl1 { 0% {left: 778px;} 100% {left: 738px;}}
+*/
+
+.ltr1 {left:  18px !important;}
+.ltr2 {left:  90px !important;}
+.ltr3 {left: 162px !important;}
+.ltr4 {left: 234px !important;}
+.ltr5 {left: 306px !important;}
+.ltr6 {left: 378px !important;}
+.ltr7 {left: 450px !important;}
+.ltr8 {left: 522px !important;}
+.ltr9 {left: 594px !important;}
+.ltr10 {left: 666px !important;}
+.ltr11 {left: 738px !important;}
+
+.rtl11 {left:  58px !important;}
+.rtl10 {left: 130px !important;}
+.rtl9 {left: 202px !important;} 
+.rtl8 {left: 274px !important;} 
+.rtl7 {left: 346px !important;} 
+.rtl6 {left: 418px !important;} 
+.rtl5 {left: 490px !important;} 
+.rtl4 {left: 562px !important;} 
+.rtl3 {left: 634px !important;} 
+.rtl2 {left: 706px !important;} 
+.rtl1 {left: 778px !important;} 
+
+.gareEnCours {
+  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 0.5s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
+  animation-name: fade;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes fade {
+  0% {background-color:white; color:black;}
+  50% {background-color:#ff7f27; color:white;}
+  100% {background-color:white; color:black;}
+}
+
+</style>
+
+<div id="ligne0" class="rectangle" style="top: 53px"></div>
+<div id="ligne2" class="rectangle" style="top: 83px;"></div>
+<div id="ligne4" class="rectangle" style="top:113px;"></div>
+<div id="ligne6" class="rectangle" style="top:143px;"></div>
+<div id="ligne8" class="rectangle" style="top:173px;"></div>
+<div id="ligne1" class="rectangle" style="top:203px;"></div>
+<div id="ligne3" class="rectangle" style="top:233px;"></div>
+<div id="ligne5" class="rectangle" style="top:263px;"></div>
+<div id="ligne7" class="rectangle" style="top:293px;"></div>
+<div id="ligne9" class="rectangle" style="top:323px;"></div>
+
+<div id="bar-border" class="progress" style="z-index: 5; position: absolute; top: 390px; margin-bottom: 0px; height: 10px; width: 100%; border-radius: 0px;">
+	<div id="bar" class="myBar progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+	</div>
+</div>
+
+<div id="train0" class="ligne0" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:38px;"></div>
+<div id="train1" class="ligne1" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:68px;"></div>
+<div id="train2" class="ligne2" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:98px;"></div>
+<div id="train3" class="ligne3" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:128px;"></div>
+<div id="train4" class="ligne4" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:158px;"></div>
+<div id="train5" class="ligne5" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:188px;"></div>
+<div id="train6" class="ligne6" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:218px;"></div>
+<div id="train7" class="ligne7" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:248px;"></div>
+<div id="train8" class="ligne8" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:278px;"></div>
+<div id="train9" class="ligne9" style="display: none; left: 80px; background-image: url(/img/train.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:308px;"></div>
+<!--
+<div id="train5" class="ligne5" style="display: none; left: 80px; background-image: url(/img/train_inverse.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:218px;"></div>
+<div id="train6" class="ligne6" style="display: none; left: 80px; background-image: url(/img/train_inverse.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:248px;"></div>
+<div id="train7" class="ligne7" style="display: none; left: 80px; background-image: url(/img/train_inverse.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:278px;"></div>
+<div id="train8" class="ligne8" style="display: none; left: 80px; background-image: url(/img/train_inverse.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:308px;"></div>
+<div id="train9" class="ligne9" style="display: none; left: 80px; background-image: url(/img/train_inverse.gif); width: 72px; position: absolute; z-index: 2; height: 19px; top:338px;"></div>
+-->
+
+<table class="table table-borderless">
+    <thead>
+      <tr>
+		<th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g1.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g2.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g3.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g4.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g5.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g6.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g7.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g8.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g9.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g10.png');"></th>
+        <th style="border-width: 1px;border-bottom: 1px !important;border-style: dashed; background-image: url('/img/g11.png');"></th>
+      </tr>
+    </thead>
+    <tbody>
+		<tr>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf01" class="ligne0 gare1 circle_front"><span id="h01" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf02" class="ligne0 gare2 circle_front"><span id="h02" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf03" class="ligne0 gare3 circle_front"><span id="h03" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf04" class="ligne0 gare4 circle_front"><span id="h04" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf05" class="ligne0 gare5 circle_front"><span id="h05" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf06" class="ligne0 gare6 circle_front"><span id="h06" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf07" class="ligne0 gare7 circle_front"><span id="h07" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf08" class="ligne0 gare8 circle_front"><span id="h08" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf09" class="ligne0 gare9 circle_front"><span id="h09" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf010" class="ligne0 gare10 circle_front"><span id="h010" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf011" class="ligne0 gare11 circle_front"><span id="h011" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                            
+		<tr>                                                                                 
+			<td style="border-top: 0px !important; width:114px;"><div id="cf11" class="ligne1 gare1 circle_front"><span id="h11" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf12" class="ligne1 gare2 circle_front"><span id="h12" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf13" class="ligne1 gare3 circle_front"><span id="h13" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf14" class="ligne1 gare4 circle_front"><span id="h14" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf15" class="ligne1 gare5 circle_front"><span id="h15" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf16" class="ligne1 gare6 circle_front"><span id="h16" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf17" class="ligne1 gare7 circle_front"><span id="h17" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf18" class="ligne1 gare8 circle_front"><span id="h18" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf19" class="ligne1 gare9 circle_front"><span id="h19" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf110" class="ligne1 gare10 circle_front"><span id="h110" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf111" class="ligne1 gare11 circle_front"><span id="h111" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                                 
+		<tr>                                                                                 
+			<td style="border-top: 0px !important; width:114px;"><div id="cf21" class="ligne2 gare1 circle_front"><span id="h21" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf22" class="ligne2 gare2 circle_front"><span id="h22" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf23" class="ligne2 gare3 circle_front"><span id="h23" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf24" class="ligne2 gare4 circle_front"><span id="h24" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf25" class="ligne2 gare5 circle_front"><span id="h25" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf26" class="ligne2 gare6 circle_front"><span id="h26" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf27" class="ligne2 gare7 circle_front"><span id="h27" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf28" class="ligne2 gare8 circle_front"><span id="h28" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf29" class="ligne2 gare9 circle_front"><span id="h29" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf210" class="ligne2 gare10 circle_front"><span id="h210" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf211" class="ligne2 gare11 circle_front"><span id="h211" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                              
+		<tr>                                                                                  
+			<td style="border-top: 0px !important; width:114px;"><div id="cf31" class="ligne3 gare1 circle_front"><span id="h31" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf32" class="ligne3 gare2 circle_front"><span id="h32" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf33" class="ligne3 gare3 circle_front"><span id="h33" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf34" class="ligne3 gare4 circle_front"><span id="h34" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf35" class="ligne3 gare5 circle_front"><span id="h35" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf36" class="ligne3 gare6 circle_front"><span id="h36" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf37" class="ligne3 gare7 circle_front"><span id="h37" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf38" class="ligne3 gare8 circle_front"><span id="h38" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf39" class="ligne3 gare9 circle_front"><span id="h39" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf310" class="ligne3 gare10 circle_front"><span id="h310" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf311" class="ligne3 gare11 circle_front"><span id="h311" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                               
+		<tr>                                                                                  
+			<td style="border-top: 0px !important; width:114px;"><div id="cf41" class="ligne4 gare1 circle_front"><span id="h41" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf42" class="ligne4 gare2 circle_front"><span id="h42" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf43" class="ligne4 gare3 circle_front"><span id="h43" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf44" class="ligne4 gare4 circle_front"><span id="h44" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf45" class="ligne4 gare5 circle_front"><span id="h45" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf46" class="ligne4 gare6 circle_front"><span id="h46" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf47" class="ligne4 gare7 circle_front"><span id="h47" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf48" class="ligne4 gare8 circle_front"><span id="h48" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf49" class="ligne4 gare9 circle_front"><span id="h49" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf410" class="ligne4 gare10 circle_front"><span id="h410" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf411" class="ligne4 gare11 circle_front"><span id="h411" class="nomGare horaire">--:--</span></div></td>
+		</tr>
+		<tr>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf51" class="ligne5 gare1 circle_front"><span id="h51" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf52" class="ligne5 gare2 circle_front"><span id="h52" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf53" class="ligne5 gare3 circle_front"><span id="h53" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf54" class="ligne5 gare4 circle_front"><span id="h54" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf55" class="ligne5 gare5 circle_front"><span id="h55" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf56" class="ligne5 gare6 circle_front"><span id="h56" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf57" class="ligne5 gare7 circle_front"><span id="h57" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf58" class="ligne5 gare8 circle_front"><span id="h58" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf59" class="ligne5 gare9 circle_front"><span id="h59" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf510" class="ligne5 gare10 circle_front"><span id="h510" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf511" class="ligne5 gare11 circle_front"><span id="h511" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                                 
+		<tr>                                                                                  
+			<td style="border-top: 0px !important; width:114px;"><div id="cf61" class="ligne6 gare1 circle_front"><span id="h61" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf62" class="ligne6 gare2 circle_front"><span id="h62" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf63" class="ligne6 gare3 circle_front"><span id="h63" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf64" class="ligne6 gare4 circle_front"><span id="h64" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf65" class="ligne6 gare5 circle_front"><span id="h65" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf66" class="ligne6 gare6 circle_front"><span id="h66" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf67" class="ligne6 gare7 circle_front"><span id="h67" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf68" class="ligne6 gare8 circle_front"><span id="h68" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf69" class="ligne6 gare9 circle_front"><span id="h69" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf610" class="ligne6 gare10 circle_front"><span id="h610" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf611" class="ligne6 gare11 circle_front"><span id="h611" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                              
+		<tr>                                                                                 
+			<td style="border-top: 0px !important; width:114px;"><div id="cf71" class="ligne7 gare1 circle_front"><span id="h71" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf72" class="ligne7 gare2 circle_front"><span id="h72" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf73" class="ligne7 gare3 circle_front"><span id="h73" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf74" class="ligne7 gare4 circle_front"><span id="h74" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf75" class="ligne7 gare5 circle_front"><span id="h75" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf76" class="ligne7 gare6 circle_front"><span id="h76" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf77" class="ligne7 gare7 circle_front"><span id="h77" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf78" class="ligne7 gare8 circle_front"><span id="h78" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf79" class="ligne7 gare9 circle_front"><span id="h79" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf710" class="ligne7 gare10 circle_front"><span id="h710" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf711" class="ligne7 gare11 circle_front"><span id="h711" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                               
+		<tr>                                                                                 
+			<td style="border-top: 0px !important; width:114px;"><div id="cf81" class="ligne8 gare1 circle_front"><span id="h81" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf82" class="ligne8 gare2 circle_front"><span id="h82" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf83" class="ligne8 gare3 circle_front"><span id="h83" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf84" class="ligne8 gare4 circle_front"><span id="h84" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf85" class="ligne8 gare5 circle_front"><span id="h85" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf86" class="ligne8 gare6 circle_front"><span id="h86" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf87" class="ligne8 gare7 circle_front"><span id="h87" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf88" class="ligne8 gare8 circle_front"><span id="h88" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf89" class="ligne8 gare9 circle_front"><span id="h89" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf810" class="ligne8 gare10 circle_front"><span id="h810" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf811" class="ligne8 gare11 circle_front"><span id="h811" class="nomGare horaire">--:--</span></div></td>
+		</tr>                                                                                
+		<tr>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf91" class="ligne9 gare1 circle_front"><span id="h91" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf92" class="ligne9 gare2 circle_front"><span id="h92" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf93" class="ligne9 gare3 circle_front"><span id="h93" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf94" class="ligne9 gare4 circle_front"><span id="h94" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf95" class="ligne9 gare5 circle_front"><span id="h95" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf96" class="ligne9 gare6 circle_front"><span id="h96" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf97" class="ligne9 gare7 circle_front"><span id="h97" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf98" class="ligne9 gare8 circle_front"><span id="h98" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf99" class="ligne9 gare9 circle_front"><span id="h99" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px;"><div id="cf910" class="ligne9 gare10 circle_front"><span id="h910" class="nomGare horaire">--:--</span></div></td>
+			<td style="border-top: 0px !important; width:114px; padding: 16px;"><div id="cf911" class="ligne9 gare11 circle_front"><span id="h911" class="nomGare horaire">--:--</span></div></td>
+		</tr>	
+	</tbody>
+</table>
+<!--
+<footer>
+  <p style="text-align: right;border-color: black;margin-bottom: 0px;font-size: 10px;padding-right: 4px;">Copyright 2018, Rabat-Morocco_v0.1</p>
+</footer>
+-->
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/moment.js"></script>
+</body>
+</html>

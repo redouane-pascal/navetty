@@ -1,0 +1,27 @@
+{
+  "name": "Oncf",
+  "version": "3.0",
+  "manifest_version": 3,
+  "description": "Train Extension for morrocan cities",
+  "browser_action": {
+    "default_icon": "img/ico.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["js/jquery-3.1.1.min.js", "js/bootstrap.min.js", "js/background.js", "js/moment.js"]
+  },	
+  "icons": {
+    "128" : "img/ico.png"
+  },
+  "permissions": [	
+	"storage",
+	"tabs", 
+	"activeTab",  
+	"http://*/*",
+	"https://*/*",
+    "notifications"
+  ]
+}	
+/*,
+    "persistent": false
+*/
