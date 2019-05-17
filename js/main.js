@@ -1,11 +1,13 @@
 var listHoraires = [];
 var listHorairesRetour = [];
 
-var now = '', twoHourAgo = '';
-var index = 0, indexGare = 0;
-var isFinished = false;
+var twoHourAgo = "";
+var index = 0;
 var isRetour = false;
-var link = '';
+var link = "";
+var data = "";
+var nbAjaxCall = 0;
+var finalObj = [];
 	
 var gare0 = {"code":"K", "nomGare":"KENITRA", "codeGare":"00250", "codeReseau":"0093"};
 var gare1 = {"code":"ST", "nomGare":"SALE TABRIQUET", "codeGare":"00238", "codeReseau":"0093"};
@@ -13,7 +15,7 @@ var gare2 = {"code":"S", "nomGare":"SALE", "codeGare":"00237", "codeReseau":"009
 var gare3 = {"code":"RV", "nomGare":"RABAT VILLE", "codeGare":"00231", "codeReseau":"0093"};
 var gare4 = {"code":"RA", "nomGare":"RABAT AGDAL", "codeGare":"00229", "codeReseau":"0093"};
 var gare5 = {"code":"T", "nomGare":"TEMARA", "codeGare":"00227", "codeReseau":"0093"}; 
-var gare6 = {"code":"S", "nomGare":"SKHIRAT", "codeGare":"00223", "codeReseau":"0093"};
+var gare6 = {"code":"SK", "nomGare":"SKHIRAT", "codeGare":"00223", "codeReseau":"0093"};
 var gare7 = {"code":"B", "nomGare":"BOUZNIKA", "codeGare":"00221", "codeReseau":"0093"};
 var gare8 = {"code":"M", "nomGare":"MOHAMMEDIA", "codeGare":"00217", "codeReseau":"0093"};
 var gare9 = {"code":"AS", "nomGare":"AIN SEBAA", "codeGare":"00213", "codeReseau":"0093"};
@@ -22,85 +24,47 @@ var gare10 = {"code":"CP", "nomGare":"CASA PORT", "codeGare":"00206", "codeResea
 var listGare = [gare0, gare1, gare2, gare3, gare4, gare5, gare6, gare7, gare8, gare9, gare10];
 var listGareRetour = [gare10, gare9, gare8, gare7, gare6, gare5, gare4, gare3, gare2, gare1, gare0];
 
-var data = "";
-var msg = "";
-var nbAjaxCall = 0;
-var finalObj = [];
-
-
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i;
-  }
-  return i;
-}
-
-function getCurrentTime() {
-	var now = new Date();
-	var h = now.getHours();
-	var m = now.getMinutes();
-	// add a zero in front of numbers<10
-	m = checkTime(m);
-	return h + ":" + m;
-}
-
-function isFirstLessThanSecond(hour1, hour2){
-	var h1 = parseInt(hour1.replace(':', ''));
-	var h2 = parseInt(hour2.replace(':', ''));
-	return h1 < h2;	
-}
-function isFirstEqualSecond(hour1, hour2){
-	var h1 = parseInt(hour1.replace(':', ''));
-	var h2 = parseInt(hour2.replace(':', ''));
-	return h1 == h2;	
-}
 
 function init() {
 
-	var unSortedData = JSON.parse(localStorage.getItem('listHoraires'));
-
-	if(unSortedData != null){		
+	// Récupérer les données du LocalStorage, sinon faire les appels nécessaires.
+	var lastAjaxExe = localStorage.getItem("lastAjaxExe");
+	if( (localStorage.getItem('lignes') == null) || (lastAjaxExe != moment().format('DD/MM/YYYY')) ){
 		
-		// Trier les données
-		unSortedData.sort(function(a, b) {return a.index - b.index});
-		
-		// Supprimer les doublons
-		data = unSortedData.reduce((arr, item) => {
-			let exists = !!arr.find(x => x.heureDepart  === item.heureDepart && x.nomGareFrom === item.nomGareFrom );
-			if(!exists){
-				arr.push(item);
-			}
-			return arr;
-		}, []);
-		
-		getLignesFrom('KENITRA', 0);
-		getLignesFrom('RABAT+AGDAL', Object.keys(finalObj).length);
-		
-	}else{
 		$(document).ready(function(){
-			$('#loader').show();			
-			// Actualiser chaque minute
-			run();
-						
-			/*
-			setInterval(function(){ 
-				run()
-			}, 30000);
-			*/
-		});	
+			$('#loader').show();
+			// Récupérer les données du site oncf.ma
+			getData();
+		});
+
+	}else{
+		// Cacher le loading
+		$('#loader').hide();
+
+		lignes = JSON.parse(localStorage.getItem('lignes'));
+
+		// Afficher l'AI.
+		afficherLignes(lignes);
+
+		// Mettre à jour l'affichage chaque 1/2 minutes
+		setInterval(function(){
+			afficherLignes(lignes)
+		}, 30000);
 	}
-		
-	// Afficher l'AI.
-	afficherLignes();
-	setInterval(function(){ 
-		afficherLignes()
-	}, 30000);
+
 		
 }
 
-function getLignesFrom(nomGareDepart, indice){
+/**
+ * Transforme la liste des horaires des trains en une liste des lignes de trains
+ * @param horaires
+ * @param nomGareDepart
+ * @returns {Array}
+ */
+function fromHorairesToLignes(nomGareDepart, lignes){
+
 	// Récupérer la liste des horaires des trains partant de la gare de départ 'nomGareDepart'
-	var horairesDepart = $(data).filter(function (i,n){
+	var horairesDepart = $(listHoraires).filter(function (i,n){
 		return n.nomGareFrom===nomGareDepart;
 	});
 	
@@ -137,30 +101,30 @@ function getLignesFrom(nomGareDepart, indice){
 				}
 			}
 		});
-				
-		finalObj.push(hrObj); //horaires;	
+
+		lignes.push(hrObj);
 	}
-	finalObj.sort(function(a, b) {return parseInt(a.CPA.replace(':','')) - parseInt(b.CPA.replace(':',''))});
-	console.log(JSON.stringify(finalObj));
-	
+	lignes.sort(function(a, b) {return parseInt(a.CPA.replace(':','')) - parseInt(b.CPA.replace(':',''))});
+	console.log(JSON.stringify(lignes));
+
 	// Nettoyer la liste des horaires
-	data = $(data).filter(function (i,n){
+	listHoraires = $(listHoraires).filter(function (i,n){
 		return (n.nomGareFrom!=nomGareDepart);
 	})
-		
+
 }	
 
 function getNextGare(gareDepart){
-	for(var i=1; i<3; i++){ // 3 : nombre de minutes max d'attente du train au sein d'une gare.
-		var heureDepartProchaineGare = addMinute(gareDepart.heureArrivee, i);
+	for(var i=1; i<4; i++){ // 4 : nombre de minutes max d'attente du train au sein d'une gare.
+		var heureDepartProchaineGare = moment(gareDepart.heureArrivee, 'HH:mm').add(i, 'minutes'); //addMinute(gareDepart.heureArrivee, i);
 		
-		var gareArrivee = $(data).filter(function (m,n){
-			return (n.nomGareFrom===gareDepart.nomGareTo && n.heureDepart===heureDepartProchaineGare);
+		var gareArrivee = $(listHoraires).filter(function (m,n){
+			return (n.nomGareFrom===gareDepart.nomGareTo && n.heureDepart===heureDepartProchaineGare.format('HH:mm'));
 		});
 		
 		// Si on trouve la gare on la supprime de la liste des gares
-		data = $(data).filter(function (m,n){
-			return (n.nomGareFrom!=gareDepart.nomGareTo || n.heureDepart!=heureDepartProchaineGare);
+		listHoraires = $(listHoraires).filter(function (m,n){
+			return (n.nomGareFrom!=gareDepart.nomGareTo || n.heureDepart!=heureDepartProchaineGare.format('HH:mm'));
 		});
 		
 		if(gareArrivee.length > 0){	
@@ -170,18 +134,18 @@ function getNextGare(gareDepart){
 	return null;
 }
 
-function afficherLignes(){
+function afficherLignes(lignes){
 
 	var msg = '';
 	var now = moment().format("HH:mm");
-	var l = finalObj.length;
+	var l = lignes.length;
 	var start = 0;
-	var end = 49;		// Nombre total des trains
+	var end = 0;		// Nombre total des trains
 	
 	// Pour déterminer les trains à afficher
-	for(var i=start; i<=end; i++){
+	for(var i=start; i<lignes.length; i++){
 		
-		var lastHour = finalObj[i].CPA;
+		var lastHour = lignes[i].CPA;
 		if( (lastHour != '--:--') && (moment().isBefore(moment(lastHour, 'HH:mm'))) ){
 			start = i > 1 ? i - 1 : i;		// 1 : nombre de trains déjà arrivés au Terminus.
 			end = start + 9;				// 9 : nombre de trains supplémentaires à afficher.
@@ -189,8 +153,8 @@ function afficherLignes(){
 		}
 	}
 	
-	for(var i=start; i<=end; i++){	
-		var tabHours = finalObj[i];
+	for(var i=start; i<=end; i++){
+		var tabHours = lignes[i];
 		var tabHoursToDisplay = [];
 		var isTrainHere = false;
 		
@@ -266,61 +230,27 @@ function afficherLignes(){
 	$('#loader').hide();
 }
 
-function run(){
-	var d = new Date();
-	twoHourAgo = 
-		("00" + (d.getDate())).slice(-2) + "/" + 
-		("00" + (d.getMonth()+1)).slice(-2) + "/" + 
-		d.getFullYear() + "+" + 
-		("00" + (d.getHours()-2)).slice(-2) + ":" + 
-		("00" + d.getMinutes()).slice(-2) 
-	;
-
-	twoHourAgo = ("00" + (d.getDate())).slice(-2) + "/" + 
-		("00" + (d.getMonth()+1)).slice(-2) + "/" + 
-		d.getFullYear() + "+00:00";
+function getData(){
+	var today = moment().format('DD/MM/YYYY')+'00:00';
 
 	$('#bar').width(0);
-	$('#bar').show();	
-	link = "https://www.oncf.ma/fr/Horaires?from["+listGare[0].codeGare+"]["+listGare[0].codeReseau+"]="+listGare[0].nomGare.replace(' ', '+');
-	link = link+"&to["+listGare[1].codeGare+"]["+listGare[1].codeReseau+"]="+listGare[1].nomGare.replace(' ', '+')+"&datedep="+twoHourAgo+"&dateret=&is-ar=0";
-	if(localStorage.getItem('lastAjaxExe')){		
-		var lastAjaxExe =  new Date(localStorage.getItem("lastAjaxExe"));
-		if(d.getHours() == lastAjaxExe.getHours()){
-			listHoraires = JSON.parse(localStorage.getItem('listHoraires'));
-			listHorairesRetour = JSON.parse(localStorage.getItem('listHorairesRetour'));			
-			//main(d);
-		}else{		
-			for(var i=1; i<listGare.length; i++){
-				ajaxCall(i-1, listGare[i-1], listGare[i]);
-			}				
-			ajaxCall(i++, gare4, gare6);
-			ajaxCall(i++, gare4, gare7);
-			ajaxCall(i++, gare4, gare8);
-			
-			ajaxCall(i++, gare5, gare7);
-			ajaxCall(i++, gare5, gare8);
-			
-			ajaxCall(i++, gare6, gare8);
-		}
-	}else{	
-		for(var i=1; i<listGare.length; i++){
-			ajaxCall(i-1, listGare[i-1], listGare[i]);
-		}				
-		ajaxCall(i++, gare4, gare6);
-		ajaxCall(i++, gare4, gare7);
-		ajaxCall(i++, gare4, gare8);
-		
-		ajaxCall(i++, gare5, gare7);
-		ajaxCall(i++, gare5, gare8);
-		
-		ajaxCall(i++, gare6, gare8);
-	}	
+	$('#bar').show();
+
+	for(var i=1; i<listGare.length; i++){
+		ajaxCall(i-1, listGare[i-1], listGare[i]);
+	}
+	// Autres appel Ajax nécessaires liées à la liaison RABAT AGDAL => MOHAMMEDIA
+	ajaxCall(i++, gare4, gare6);
+	ajaxCall(i++, gare4, gare7);
+	ajaxCall(i++, gare4, gare8);
+	ajaxCall(i++, gare5, gare7);
+	ajaxCall(i++, gare5, gare8);
+	ajaxCall(i++, gare6, gare8);
 }
 
-function extractData(result, gareFrom, gareTo, id){
-	console.log('extractData(result, '+id+', '+isRetour+')');
-	var html = $.parseHTML(result);
+function extractData(ajaxResponse, gareFrom, gareTo, id){
+	console.log('extractData(ajaxResponse, '+id+', '+isRetour+')');
+	var html = $.parseHTML(ajaxResponse);
 	var dataTable = html[44].getElementsByClassName("table table_custom")[0];
 	if(dataTable) {
 		var cells = dataTable.querySelectorAll("td");
@@ -332,7 +262,6 @@ function extractData(result, gareFrom, gareTo, id){
 				var heureDepart = cells[6*i].textContent.trim();	
 				var heureArrivee = cells[6*i+1].textContent.trim();					
 				var nbMinutes = 60*parseInt(heureDepart.substring(0, 2))+parseInt(heureDepart.substring(5, 3));
-				var tempsRestant = getTempsRestant(nbMinutes);
 				if(isRetour){
 					var obj = {'index' : 100*id + i, //String.fromCharCode(65+id)+i, 
 						'nomGareFrom' : gareFrom.nomGare.replace(' ', '+'), 
@@ -354,17 +283,29 @@ function extractData(result, gareFrom, gareTo, id){
 }
 
 function ajaxCall(id, gareFrom, gareTo){
+	var today = moment().format('DD/MM/YYYY')+'00:00';
 	$.ajax({
-		url: "https://www.oncf.ma/fr/Horaires?from["+gareFrom.codeGare+"]["+gareFrom.codeReseau+"]="+gareFrom.nomGare.replace(' ', '+')+"&to["+gareTo.codeGare+"]["+gareTo.codeReseau+"]="+gareTo.nomGare.replace(' ', '+')+"&datedep="+twoHourAgo+"&dateret=&is-ar=0", 
+		url: "https://www.oncf.ma/fr/Horaires?from["+gareFrom.codeGare+"]["+gareFrom.codeReseau+"]="+gareFrom.nomGare.replace(' ', '+')+"&to["+gareTo.codeGare+"]["+gareTo.codeReseau+"]="+gareTo.nomGare.replace(' ', '+')+"&datedep="+today+"&dateret=&is-ar=0",
 		type: 'GET', 
 		success: function(result){  
 			extractData(result, gareFrom, gareTo, id);
 			console.log('getDataFromTo() : '+ gareFrom.nomGare +' -> '+ gareTo.nomGare);
-			if(nbAjaxCall == 15){			
-				var d = new Date();	
-				localStorage.setItem('listHorairesRetour', JSON.stringify(listHorairesRetour));	
-				localStorage.setItem('listHoraires', JSON.stringify(listHoraires));							
-				localStorage.setItem('lastAjaxExe', d);	
+			if(nbAjaxCall == 15){ // 15 = 9 + 6 (10 gares => 9 appels Ajax) + (6 appels Ajax pour le trançon RABAT AGDAL <=> MOHAMMEDIA)
+
+				var lignes = [];
+				listHoraires = cleanData(listHoraires);
+				fromHorairesToLignes( 'KENITRA', lignes);
+				fromHorairesToLignes( 'RABAT+AGDAL', lignes);
+				localStorage.setItem('lignes', JSON.stringify(lignes));
+				localStorage.setItem('lastAjaxExe', moment().format('DD/MM/YYYY'));
+
+				// Afficher l'AI, après le dernier appel ajax effectué
+				afficherLignes(lignes);
+				// Mettre à jour l'affichage chaque 1/2 minutes
+				setInterval(function(){
+					afficherLignes(lignes)
+				}, 30000);
+
 			}
 			nbAjaxCall++;			
 		},
@@ -374,29 +315,18 @@ function ajaxCall(id, gareFrom, gareTo){
 	});
 }
 
-function getTempsRestant(minutes){
-	var d = new Date();
-	var n = d.toLocaleTimeString();
-	var minNow = 60*parseInt(n.substring(0, 2))+parseInt(n.substring(5, 3));
-	var diff = minutes-minNow;
-	return	diff > 59 ? '1h+' : (diff < 0 ? '-' : diff+' min');
-}	
+function cleanData(dirtyData) {
+	// Trier les données
+	dirtyData.sort(function(a, b) {return a.index - b.index});
 
-function addMinute(temps, nbMinute){
-	var t = temps.split(':');
-	var newMinute = parseInt(t[1]) + nbMinute;
-	var h = parseInt(t[0]);
-	if(newMinute > 59){
-		newMinute = newMinute - 60;
-		h = h + 1;
-	}
-	if(newMinute < 10){
-		newMinute = '0' + newMinute;
-	}
-	if(h < 10){
-		h = '0' + h;
-	}
-	return h+":"+newMinute;
+	// Supprimer les doublons
+	return dirtyData.reduce((arr, item) => {
+		let exists = !!arr.find(x => x.heureDepart  === item.heureDepart && x.nomGareFrom === item.nomGareFrom);
+		if(!exists){
+			arr.push(item);
+		}
+		return arr;
+	}, []);
 }
 
 document.addEventListener('DOMContentLoaded', init);
