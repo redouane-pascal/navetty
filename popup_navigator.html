@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
+    <title>Navetty</title>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="10">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
@@ -12,16 +11,16 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body style="overflow: visible !important; background-image: url('/img/bg.png'); width: 792px; height: 400px;">
+<body style="overflow: visible !important; background-image: url('img/bg.png'); width: 100%; min-width:700px; height: 100%; font-family: 'Comic Sans MS', cursive, sans-serif;">
     <div id="loader" style="width: 100%; height: 100%; background-color: white; position: absolute; top: 0; z-index: 5; top: -100px;">
         <img src="img/loading.gif" class="center" />
         <!--object-fit: contain; -->
     </div>
-    <table id="grille" class="table table-borderless" style="margin-bottom: 0px;">
+    <table id="grille" class="table table-borderless" style="margin-bottom: 0px; position: relative; z-index: 3;">
         <thead></thead>
         <tbody></tbody>
     </table>
-    <div style="text-align: center; background: linear-gradient(#63a0d6, #bb9c80);">
+    <div style="text-align: center; background: linear-gradient(#63a0d6, #bb9c80);position: fixed; bottom: 0px; width: 100%;">
         <!--<input type="checkbox" checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-pause'></i> Pause">-->
         <!--<input id="fromTo" name="fromTo" type="checkbox" checked data-toggle="toggle" data-on="KENITRA" data-off="CASABLANCA">-->
         <!-- <button id="fromTo" name="fromTo" type="button" class="btn btn-primary" style="display: none">
@@ -52,12 +51,13 @@
     font-size: 19px;
 ">From KENITRA</div>
     </div>
-
-
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/moment.js"></script>
     <script src="js/bootstrap-toggle.min.js"></script>
+    <script src="js/k_to_cp.js"></script>
+    <script src="js/cp_to_k.js"></script>
+    <script src="js/background.js"></script>
     <script src="js/main.js"></script>
 </body>
 
