@@ -51,8 +51,10 @@ function clearUI() {
         for (var i = 1; i <= gares.length; i++) {
             var index = fromIndexToChar(k) + "" + i; // i : la gare, k : la ligne
             $("#h" + index).val("--:--");
+            $("#h" + index).css("color", "");
             $("#cf" + index).css("display", "block");
-            $("#cf" + index).css("background-color", "white");
+            $("#cf" + index).css("background-color", "");
+
         }
     }
 }
@@ -109,8 +111,9 @@ function initUI() {
         var thHeight = parseInt($("#gare_1").css("height").replace("px", ""), 10) + 1;
         var tdHeight = 31;
         var trainHeight = 20;
+        var bandUpHeight = parseInt($("#band_up").css("height").replace("px", ""), 10) + 1;
 
-        let myDivTrainStyleTop = thHeight + tdHeight - trainHeight + tdHeight * j;
+        let myDivTrainStyleTop = thHeight + tdHeight - trainHeight + tdHeight * j + bandUpHeight;
         myDivTrainStyle = myDivTrainStyle + " top:" + myDivTrainStyleTop + "px; ";
         myDivTrain.setAttribute("style", myDivTrainStyle);
         //body.appendChild(myDivTrain);
@@ -121,7 +124,7 @@ function initUI() {
         myDivNumLigne.setAttribute("id", "numTrain_" + j);
         myDivNumLigne.setAttribute("class", "numTrain");
         myDivNumLigne.setAttribute("title", "N° du train");
-        var myDivNumLigneTop = j * tdHeight + thHeight;
+        var myDivNumLigneTop = j * tdHeight + thHeight + bandUpHeight;
         let myDivNumLigneStyle = "top:" + myDivNumLigneTop + "px; ";
         myDivNumLigne.setAttribute("style", myDivNumLigneStyle);
         myDivNumLigne.innerHTML = tabNumLignes[j + start] ? tabNumLignes[j + start] : ".";
@@ -277,7 +280,6 @@ function fromIndexToChar(index) {
  */
 function main() {
     clearInterval(setIntervalID);
-
 
     if (isRetour) {
         lignes = d_lignes_fromTo_cp_k
