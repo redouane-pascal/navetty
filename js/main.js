@@ -1,27 +1,14 @@
-let listGare = [
-    { "id": 1, "code": "K", "name": "Kénitra" },
-    { "id": 2, "code": "ST", "name": "Salé Tabriquet" },
-    { "id": 3, "code": "S", "name": "Salé Ville" },
-    { "id": 4, "code": "RV", "name": "Rabat Ville" },
-    { "id": 5, "code": "RA", "name": "Rabat Agdal" },
-    { "id": 6, "code": "T", "name": "Temara" },
-    { "id": 7, "code": "SK", "name": "Skhirate" },
-    { "id": 8, "code": "B", "name": "Bouznika" },
-    { "id": 9, "code": "M", "name": "Mohammedia" },
-    { "id": 10, "code": "AS", "name": "Ain Sebaa" },
-    { "id": 11, "code": "CP", "name": "Casa Port" }
-];
-if (localStorage.getItem('gares')) {
-    listGare = JSON.parse(localStorage.getItem('gares'));
-}
+let listGare = JSON.parse(d_listGares);
 let listGareRetour = listGare.slice(0).reverse();
 
 let isRetour = false;
 let gares = isRetour ? [...listGareRetour] : [...listGare];
-
-let nbLignes = 15;
-let setIntervalID = 0;
 let screenWidth = screen.width;
+let lignes = d_lignes_fromTo_k_cp;
+
+
+let nbLignes = 14;
+let setIntervalID = 0;
 
 let start;
 let end; // Nombre total des trains
@@ -42,42 +29,12 @@ function setStartAndEnd() {
 
 let tabNumLignes = [];
 let tabHoraire = [];
-
 function jsonToTab(lignes) {
     tabNumLignes = [];
     tabHoraire = [];
     for (let [numLigne, horaire] of Object.entries(JSON.parse(lignes))) {
         tabNumLignes.push(numLigne);
         tabHoraire.push(horaire);
-    }
-}
-
-
-function init() {
-    clearInterval(setIntervalID);
-    let lignes = localStorage.getItem("lignes_fromTo_k_cp"); //"lignes_fromKtoCP");
-    gares = [...listGare]
-    if (isRetour) {
-        lignes = localStorage.getItem("lignes_fromTo_cp_k"); //"lignes_fromCPtoK");
-        gares = [...listGareRetour]
-    }
-
-    if (lignes != null) {
-
-        // Mettre à jour l'affichage chaque 1/2 minutes  
-        jsonToTab(lignes);
-        setStartAndEnd();
-        initUI();
-        afficherLignes();
-        setIntervalID = setInterval(function() {
-            jsonToTab(lignes);
-            clearUI();
-            setStartAndEnd();
-            afficherLignes();
-
-        }, 10000);
-
-        $("#loader").hide();
     }
 }
 
@@ -95,6 +52,7 @@ function clearUI() {
             var index = fromIndexToChar(k) + "" + i; // i : la gare, k : la ligne
             $("#h" + index).val("--:--");
             $("#cf" + index).css("display", "block");
+            $("#cf" + index).css("background-color", "white");
         }
     }
 }
@@ -269,8 +227,6 @@ function afficherLignes() {
                             $("#train" + (i - start)).css("left", leftPosition + "%");
                         }
 
-                        //$("#train" + (i - start)).removeClass("");
-                        //$("#train" + (i - start)).addClass("ltr" + numGarePrec);
                         $("#train" + (i - start)).css("display", "block");
                         isTrainHere = false;
                     }
@@ -316,9 +272,42 @@ function fromIndexToChar(index) {
     return String.fromCharCode(97 + parseInt(index));
 }
 
+/**
+ * Le programme principale
+ */
+function main() {
+    clearInterval(setIntervalID);
+
+
+    if (isRetour) {
+        lignes = d_lignes_fromTo_cp_k
+        gares = [...listGareRetour]
+    }else{
+        lignes = d_lignes_fromTo_k_cp;
+        gares = [...listGare];
+    }
+
+    if (lignes != null) {
+
+        // Mettre à jour l'affichage chaque 1/2 minutes
+        jsonToTab(lignes);
+        setStartAndEnd();
+        initUI();
+        afficherLignes();
+        setIntervalID = setInterval(function() {
+            jsonToTab(lignes);
+            clearUI();
+            setStartAndEnd();
+            afficherLignes();
+        }, 10000);
+
+        $("#loader").hide();
+    }
+}
+
 document.querySelector("#switchBtn").addEventListener("change", function() {
     isRetour = !$('#switchBtn').is(':checked');
-    init();
+    main();
 });
 
-init();
+main();

@@ -1,0 +1,2 @@
+let d_listGares = '[{ "id": 1, "code": "K", "name": "Kénitra" }, { "id": 2, "code": "ST", "name": "Salé Tabriquet" }, { "id": 3, "code": "S", "name": "Salé Ville" }, { "id": 4, "code": "RV", "name": "Rabat Ville" }, { "id": 5, "code": "RA", "name": "Rabat Agdal" }, { "id": 6, "code": "T", "name": "Temara" }, { "id": 7, "code": "SK", "name": "Skhirate" }, { "id": 8, "code": "B", "name": "Bouznika" }, { "id": 9, "code": "M", "name": "Mohammedia" }, { "id": 10, "code": "AS", "name": "Ain Sebaa" }, { "id": 11, "code": "CP", "name": "Casa Port" }]';
+
