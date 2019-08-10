@@ -29,6 +29,7 @@ function setStartAndEnd() {
 
 let tabNumLignes = [];
 let tabHoraire = [];
+
 function jsonToTab(lignes) {
     tabNumLignes = [];
     tabHoraire = [];
@@ -51,9 +52,9 @@ function clearUI() {
         for (var i = 1; i <= gares.length; i++) {
             var index = fromIndexToChar(k) + "" + i; // i : la gare, k : la ligne
             $("#h" + index).val("--:--");
-            $("#h" + index).css("color", "");
+            $("#h" + index).removeAttr('style');
             $("#cf" + index).css("display", "block");
-            $("#cf" + index).css("background-color", "");
+            $("#cf" + index).removeAttr('style');
 
         }
     }
@@ -284,7 +285,7 @@ function main() {
     if (isRetour) {
         lignes = d_lignes_fromTo_cp_k
         gares = [...listGareRetour]
-    }else{
+    } else {
         lignes = d_lignes_fromTo_k_cp;
         gares = [...listGare];
     }

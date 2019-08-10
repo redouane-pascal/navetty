@@ -3,33 +3,38 @@
 
 <head>
     <title>Navetty</title>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"/>
-    <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" /> -->
+    <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body style="overflow: visible !important; background-image: url('img/bg.png'); width: 100%; min-width:700px; height: 100%; font-family: 'Comic Sans MS', cursive, sans-serif;">
+<body style="overflow: visible !important; background-image: url('img/bg.png'); width: 100%; min-width:700px; height: 100%; font-family: 'Comic Sans MS', cursive, sans-serif; position: fixed; overflow-y: scroll">
 
-<div id="band_up" style="width:100%; position:relative; height:30px; background-color: #353333;">
-    <div id="title">
-        <span style="color: wheat; font-weight:bold; font-size: 20px; text-shadow: 2px 2px #795548;">
-            <span id="maGareDepart">RABAT AGDAL</span> - &nbsp;<span id="hour">11:32</span>
-        </span>
+    <div id="band_up" style="font-family: board; width:100%; position:relative; height:30px; background-color: #353333;">
+        <div id="info">
+            <span style="color: wheat;
+            font-weight: bold;
+            font-size: 16px;
+            top: 4px;
+            text-shadow: 2px 2px #795548;
+            position: relative;">
+            <span id="message">Données valables jusqu'au 15/09/2019</span> - <span id="hour">11:32</span>
+            </span>
+        </div>
     </div>
-</div>
 
-<table id="grille" class="table table-borderless" style="margin-bottom: 0px; position: relative; z-index: 3">
-    <thead></thead>
-    <tbody></tbody>
-</table>
-<div style="text-align: center; background: linear-gradient(#63a0d6, #bb9c80);position: fixed; bottom: 0px; width: 100%;">
+    <table id="grille" class="table table-borderless" style="margin-bottom: 0px; position: relative; z-index: 3">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+    <div style="text-align: center; background: linear-gradient(#63a0d6, #bb9c80);position: fixed; bottom: 0px; width: 100%; z-index: 4;">
 
-    <div style="
+        <div style="
     display: inline-block;
     top: -12px;
     position: relative;
@@ -39,12 +44,12 @@
     text-shadow: -1px 0 0 #ed7d31, 1px 0 0 #ed7d31, 0 -1px 0 #ed7d31, 0 1px 0 #ed7d31;
     font-size: 19px;
 ">From CASA PORT
-    </div>
-    <label class="switch">
+        </div>
+        <label class="switch">
         <input id="switchBtn" type="checkbox" checked>
         <span></span>
     </label>
-    <div style="
+        <div style="
     display: inline-block;
     top: -12px;
     position: relative;
@@ -54,22 +59,35 @@
     text-shadow: -1px 0 0 #ffffff, 1px 0 0 #ffffff, 0 -1px 0 #ffffff, 0 1px 0 #ffffff;
     font-size: 19px;
 ">From KENITRA
+        </div>
+
+        <div id="aboutMe" style="
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #353333;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 10px;
+    padding-top: 3px;
+    "><span style="
+    color: wheat;
+">Made by <a href="https://www.linkedin.com/in/radwanbasqual/" style="color: #fff4df;">Radwan BASQUAL</a>_2018</span></div>
     </div>
-</div>
 
-<div id="loader" style="z-index: 6; background-color: #eba013; position: absolute; top: 0; width: 100%; height: 100%; opacity: 0.98;">
-    <img src="img/load.gif" style="margin: 0 auto; display: grid;"/>
-</div>
+    <div id="loader" style="z-index: 6; background-color: #eba013; position: absolute; top: 0; width: 100%; height: 100%; opacity: 0.98;">
+        <img src="img/load.gif" style="margin: 0 auto; display: grid;" />
+    </div>
 
-<script src="data/gares.js"></script>
-<script src="data/lignes_fromCPtoK.js"></script>
-<script src="data/lignes_fromKtoCP.js"></script>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/moment.js"></script>
-<script src="js/bootstrap-toggle.min.js"></script>
-<script src="js/background.js"></script>
-<script src="js/main.js"></script>
+    <script src="data/gares.js"></script>
+    <script src="data/lignes_fromCPtoK.js"></script>
+    <script src="data/lignes_fromKtoCP.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/bootstrap-toggle.min.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
