@@ -194,6 +194,8 @@ function afficherLignes() {
             var heureArrivee = tabHours[2 * j]; // tabHours[code + "A"] == undefined ? tabHours[code + "D"] : tabHours[code + "A"];
             var heureAffichee = null; //"--:--";
 
+            $("#cf" + fromIndexToChar(i - start) + "" + numGare).removeClass("clignote");
+
             if ((heureDepart == null) && (heureArrivee != null)) {
                 heureDepart = heureArrivee;
             }
@@ -240,8 +242,9 @@ function afficherLignes() {
                 // Train en attente dans la gare
                 if (heureArrivee == moment().format("HH:mm") || (moment().isAfter(moment(heureArrivee, "HH:mm")) && moment().isBefore(moment(heureDepart, "HH:mm"))) || moment().format("HH:mm") == heureDepart) {
                     heureAffichee = heureDepart;
-                    $("#h" + fromIndexToChar(i - start) + "" + numGare).css("color", "white");
-                    $("#cf" + fromIndexToChar(i - start) + "" + numGare).css("background-color", "orange");
+                    //$("#h" + fromIndexToChar(i - start) + "" + numGare).css("color", "white");
+                    //$("#cf" + fromIndexToChar(i - start) + "" + numGare).css("background-color", "orange");
+                    $("#cf" + fromIndexToChar(i - start) + "" + numGare).addClass("clignote");
                     isTrainHere = false;
                 }
 

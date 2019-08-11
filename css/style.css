@@ -263,9 +263,6 @@ label.switch>input[type="checkbox"]:checked~span:after {
     animation-timing-function: ease-in-out;
 }
 
-
-/* Safari 4.0 - 8.0 */
-
 @-webkit-keyframes example {
     0% {
         left: 100%;
@@ -274,9 +271,6 @@ label.switch>input[type="checkbox"]:checked~span:after {
         left: -480px;
     }
 }
-
-
-/* Standard syntax */
 
 @keyframes example {
     0% {
@@ -290,4 +284,40 @@ label.switch>input[type="checkbox"]:checked~span:after {
 @font-face {
     font-family: "board";
     src: url("../font/board.woff");
+}
+
+.clignote {
+    animation-name: clignote;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes clignote {
+    0% {
+        background-color: white;
+        color: black;
+    }
+    50% {
+        background-color: #ed7d31;
+        color: white;
+    }
+    100% {
+        background-color: white;
+        color: black;
+    }
+}
+
+@keyframes clignote {
+    0% {
+        background-color: white;
+        color: black;
+    }
+    50% {
+        background-color: #ed7d31;
+        color: white;
+    }
+    100% {
+        background-color: white;
+        color: black;
+    }
 }
