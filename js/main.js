@@ -6,7 +6,6 @@ let gares = isRetour ? [...listGareRetour] : [...listGare];
 let screenWidth = screen.width;
 let lignes = d_lignes_fromTo_k_cp;
 
-
 let nbLignes = 14;
 let setIntervalID = 0;
 
@@ -55,17 +54,21 @@ function clearUI() {
             $("#h" + index).removeAttr('style');
             $("#cf" + index).css("display", "block");
             $("#cf" + index).removeAttr('style');
-
         }
     }
+
+    // Supprimer les lignes supplémentaires
+    for (var j = $("#grille tr").length; j > (end - start + 2); j--) {
+        console.log(j);
+        $("#grille tr")[j - 1].remove();
+    }
+
 }
 
 /**
  * Générer la grille d'affichage des horaires des trains
  */
 function initUI() {
-
-    console.log(moment().format("HH:mm:ss SSS ") + "[INFO] initUI ");
 
     document.querySelector("table").remove();
 
@@ -95,10 +98,6 @@ function initUI() {
     let hourWidth = Math.round(screen.width * 5 / 100);
     let spaceWidth = Math.round((screen.width - 11 * hourWidth) / 11);
     let spaceAtLeft = Math.round(spaceWidth / 2) - 1;
-
-    console.log("hourWidth = " + hourWidth);
-    console.log("spaceWidth = " + spaceWidth);
-    console.log("spaceAtLeft = " + spaceAtLeft);
 
     for (var j = 0; j <= (end - start); j++) {
         var myRow = tab.querySelector("tbody").insertRow();
@@ -168,8 +167,9 @@ function initUI() {
  * @param lignes
  */
 function afficherLignes() {
+    // Mettre à jour l'heure dans le bandeau
+    $("#currentHour").text(moment().tz("Africa/Casablanca").format('HH:mm'));
 
-    console.log(moment().format("HH:mm:ss SSS") + "[INFO] afficherLignes ");
     var msg = "";
     var l = tabHoraire.length;
 
@@ -299,8 +299,8 @@ function main() {
         afficherLignes();
         setIntervalID = setInterval(function() {
             jsonToTab(lignes);
-            clearUI();
             setStartAndEnd();
+            clearUI();
             afficherLignes();
         }, 10000);
 
